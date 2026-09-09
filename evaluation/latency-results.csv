@@ -1,0 +1,11 @@
+setting,connection,pipeline,p50_ms,p95_ms,samples
+corridor,wifi,server,412,738,300
+corridor,wifi,on-device,118,204,300
+corridor,lte,server,689,1502,300
+street,wifi,server,437,801,300
+street,lte,server,724,1683,300
+street,lte,on-device,121,219,300
+cafeteria,wifi,server,455,844,300
+stairwell,wifi,server,398,712,300
+stairwell,lte,on-device,116,198,300
+transit,lte,server,751,1794,300

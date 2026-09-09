@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository-checks:
+    name: Repository structure and docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Run structure and documentation tests
+        run: python -m pytest tests -v
+
+  secret-scan:
+    name: Check for committed secrets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan for credential-shaped strings
+        run: |
+          set -e
+          # Deliberately narrow: high-confidence patterns only, no entropy heuristics.
+          PATTERN='AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|sk-[A-Za-z0-9]{32,}|ghp_[A-Za-z0-9]{36}'
+          if grep -rIEn --exclude-dir=.git --exclude-dir=node_modules \
+               --exclude=.github/workflows/ci.yml "$PATTERN" . ; then
+            echo "::error::Credential-shaped string found. See SECURITY.md."
+            exit 1
+          fi
+          echo "No credential-shaped strings found."

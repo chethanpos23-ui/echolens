@@ -1,0 +1,52 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+build/
+.svelte-kit/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Rust
+target/
+Cargo.lock
+
+# Go
+/bin/
+*.test
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Data / artifacts
+*.sqlite
+*.sqlite3
+*.db
+/tmp/
+coverage/
+.coverage
