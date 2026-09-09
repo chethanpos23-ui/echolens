@@ -6,13 +6,13 @@
 flowchart TD
     CAM[Phone camera] --> MOB[React Native app]
     MOB -->|frames over WebSocket| SRV[FastAPI server]
-    MOB --> LOCAL[On-device YOLO\noffline + privacy mode]
+    MOB --> LOCAL[On-device YOLO<br/>offline + privacy mode]
     SRV --> VLM[Vision-language model]
     SRV --> OCR[Sign + text recognition]
     VLM --> RANK[Context ranker]
     OCR --> RANK
     LOCAL --> RANK
-    RANK --> DEDUP[Change detection\ndrop repeats]
+    RANK --> DEDUP[Change detection<br/>drop repeats]
     DEDUP --> TTS[Text-to-speech]
     DEDUP --> HAP[Haptic warning]
     TTS --> MOB
